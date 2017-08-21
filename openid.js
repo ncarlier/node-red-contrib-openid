@@ -113,8 +113,9 @@ module.exports = function (RED) {
       this.warn(RED._('openid.warn.missing-credentials'))
       return
     }
-    Issuer.discover(this.openid.credentials.discovery_url).then(issuer => {
-      this.oidcClient = new issuer.Client(this.openid.credentials)
+    let issuer = null
+    Issuer.discover(this.openid.credentials.discovery_url).then(iss => {
+      issuer = iss
     }, err => {
       this.error(RED._('openid.error.bad-discovery_url'))
       console.log('Discover error %j', err)
@@ -131,14 +132,15 @@ module.exports = function (RED) {
       if (current_time > expires_at) {
         this.status({fill: 'blue', shape: 'dot', text: 'openid.status.refreshing'})
         const refresh_token = this.openid.credentials.refresh_token
-        token_is_valid = this.oidcClient.refresh(refresh_token).then(tokenSet => {
+        const oidcClient = new issuer.Client(this.openid.credentials)
+        token_is_valid = oidcClient.refresh(refresh_token).then(tokenSet => {
           this.openid.credentials.access_token = tokenSet.access_token
           this.openid.credentials.expires_at = tokenSet.expires_at
           RED.nodes.addCredentials(this.id, this.openid.credentials)
           return Promise.resolve()
         }, err => {
           this.error(RED._('openid.error.refresh-failed', {err: JSON.stringify(err)}))
-          this.status({fill: 'red', shape: 'ring', text: 'keeper.status.failed'})
+          this.status({fill: 'red', shape: 'ring', text: 'openid.status.failed'})
           msg.payload = err
           msg.error = err
           this.send(msg)
