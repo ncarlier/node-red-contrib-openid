@@ -1,0 +1,33 @@
+{
+  "openid": {
+    "label": {
+      "id": "ID",
+      "openid": "OpenID",
+      "config": "OpenID configuration",
+      "discovery_url": "Discovery",
+      "client_id": "Client Id",
+      "client_secret": "Client secret",
+      "authenticate": "Authenticate",
+      "displayName": "Display name"
+    },
+    "tip": {
+      "redirect": "<p>Please configure the authorized <b>Redirect URIs</b> of your app to include the following url:</p>\n<code>__callback__</code>"
+    },
+    "status": {
+      "refreshing": "refreshing",
+      "failed": "failed",
+      "error": "error"
+    },
+    "warn": {
+      "missing-credentials": "Missing OpenID credentials"
+    },
+    "error": {
+      "no-credentials": "ERROR: no credentials - should never happen",
+      "authorized": "<html><head></head><body>Authorised - you can close this window and return to Node-RED</body></html>",
+      "token-mismatch": "CSRF token mismatch, possible cross-site request forgery attempt.",
+      "bad-discovery-url": "Bad discovery URL",
+      "refresh-failed": "Unable to refresh the access token",
+      "something-broke": "Something went wrong in the authentication process. Please try again."
+    }
+  }
+}
