@@ -2,6 +2,7 @@
   "openid": {
     "label": {
       "id": "ID",
+      "name": "Name",
       "openid": "OpenID",
       "config": "OpenID configuration",
       "discovery_url": "Discovery",

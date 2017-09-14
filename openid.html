@@ -160,6 +160,11 @@
     <label for="node-input-openid"><i class="fa fa-user"></i> <span data-i18n="openid.label.id"></span></label>
     <input type="text" id="node-input-openid">
   </div>
+  <hr align="middle"/>
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="openid.label.name"></span></label>
+    <input type="text" id="node-input-name" data-i18n="[placeholder]openid.label.openid">
+  </div>
 </script>
 
 <script type="text/x-red" data-help-name="openid">
@@ -183,13 +188,17 @@ RED.nodes.registerType('openid',{
   category: 'function',
   color: '#e7e7ae',
   defaults: {
+    name: {value: ''},
     openid: {type: 'openid-credentials', required: true}
   },
   inputs: 1,
   outputs: 1,
   icon: 'openid.png',
   label: function() {
-    return this.displayName || 'OpenID';
+    return this.name || 'OpenID';
+  },
+  labelStyle: function() {
+    return this.name ? 'node_label_italic' : '';
   }
 });
 </script>
