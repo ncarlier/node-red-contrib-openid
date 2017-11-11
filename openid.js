@@ -53,8 +53,9 @@ module.exports = function (RED) {
       const client = new issuer.Client({client_id, client_secret})
       const authorization_url = client.authorizationUrl({
         redirect_uri,
-        scope: 'offline_access email',
-        state: `${node_id}:${csrf_token}`
+        scope: 'openid email offline_access',
+        state: `${node_id}:${csrf_token}`,
+        access_type: 'offline'
       })
       res.cookie('csrf', csrf_token)
       res.redirect(authorization_url)
