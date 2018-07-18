@@ -1,26 +1,21 @@
-node-red-contrib-openid
-=======================
+# node-red-contrib-openid
 
-[Node-RED][nodered] node to use OpenID Connect with HTTP nodes.
+[Node-RED][nodered] node to use OpenID Connect with HTTP request nodes.
 
 This node uses the certified OpenID client library:
 [node-openid-client][node-openid-client]
 
 ![Screenshot](screenshot.png)
 
-Install
--------
+## Install
 
 Run the following command in the root directory of your Node-RED install
 
 ```bash
-npm install node-red-node-openid
+npm install node-red-contrib-openid
 ```
 
-Usage
------
-
-### OpenID node
+## Usage
 
 Once authenticated with the OpenID provider, each message passing through this
 node obtains a fresh access token.
@@ -33,3 +28,4 @@ headers: `msg.headers['Authorization']`
 
 [nodered]: https://nodered.org/
 [node-openid-client]: https://github.com/panva/node-openid-client
+
