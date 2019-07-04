@@ -3,7 +3,8 @@
   "version": "1.0.1",
   "description": "Node-RED node to integrate OpenID Connect in flows",
   "dependencies": {
-    "openid-client": "^2.1.0"
+    "openid-client": "^2.1.0",
+    "snyk": "^1.190.0"
   },
   "repository": {
     "type": "git",
@@ -23,5 +24,10 @@
   "author": {
     "name": "Nicolas Carlier",
     "url": "https://github.com/ncarlier"
-  }
+  },
+  "scripts": {
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
+  "snyk": true
 }
