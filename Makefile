@@ -4,7 +4,7 @@
 APPNAME:=node-red-contrib-openid
 
 # Base image
-BASEIMAGE=node:6-onbuild
+BASEIMAGE=node:8-onbuild
 
 # Default configuration
 ENV_FLAGS?=-e NODE_ENV=development
@@ -21,4 +21,3 @@ root_dir:=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 makefiles:=$(root_dir)/makefiles
 include $(makefiles)/help.Makefile
 include $(makefiles)/docker.Makefile
-

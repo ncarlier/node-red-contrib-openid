@@ -2,7 +2,7 @@
 # Node-RED server with OpenID plugin.
 #########################################
 
-FROM node:6-onbuild
+FROM node:8-onbuild
 
 MAINTAINER Nicolas Carlier <https://github.com/ncarlier>
 
