@@ -39,7 +39,7 @@ module.exports = function (RED) {
   })
 
   RED.httpAdmin.get('/openid-credentials/auth', function (req, res) {
-    if (!req.query.discovery || !req.query.clientId || !req.query.clientSecret || !req.query.scopes || !req.query.id || !req.query.callback) {
+    if (!req.query.discovery || !req.query.clientId || !req.query.clientSecret || !req.query.id || !req.query.callback) {
       res.send(400)
       return
     }
@@ -48,7 +48,7 @@ module.exports = function (RED) {
     const redirect_uri = req.query.callback
     const client_id = req.query.clientId
     const client_secret = req.query.clientSecret
-    const scopes = req.query.scopes
+    const scopes = req.query.scopes.trim() !== '' ? req.query.scopes.trim() : 'openid email offline_access'
 
     Issuer.discover(discovery_url).then((issuer) => {
       const csrf_token = crypto.randomBytes(18).toString('base64').replace(/\//g, '-').replace(/\+/g, '_')
@@ -77,7 +77,7 @@ module.exports = function (RED) {
     const state = req.query.state.split(':')
     const node_id = state[0]
     const credentials = RED.nodes.getCredentials(node_id)
-    if (!credentials || !credentials.client_id || !credentials.client_secret || !credentials.scopes) {
+    if (!credentials || !credentials.client_id || !credentials.client_secret) {
       return res.send(RED._('openid.error.no-credentials'))
     }
     // console.log('Credentials:' + JSON.stringify(credentials))

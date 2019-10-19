@@ -71,7 +71,7 @@
       discovery_url: { type: "text"},
       client_id: { type: "text"},
       client_secret: { type: "password"},
-      scopes: { type: "texxt"}
+      scopes: { type: "text"}
     },
     label: function() {
       return this.displayName || 'OpenID';
@@ -94,8 +94,7 @@
         var v1 = $("#node-config-input-discovery").val();
         var v2 = $("#node-config-input-clientId").val();
         var v3 = $("#node-config-input-clientSecret").val();
-        var v4 = $('#node-config-input-scopes').val();
-        $("#node-config-start-auth").toggleClass("disabled",(v1.length === 0 || v2.length === 0 || v3.length === 0 || v4.length === 0));
+        $("#node-config-start-auth").toggleClass("disabled",(v1.length === 0 || v2.length === 0 || v3.length === 0));
       }
       $("#node-config-input-discovery").on('change keydown paste input', updateOpenIDAuthButton);
       $("#node-config-input-clientId").on('change keydown paste input', updateOpenIDAuthButton);
@@ -145,7 +144,7 @@
         var clientId = $("#node-config-input-clientId").val();
         var clientSecret = $("#node-config-input-clientSecret").val();
         var scopes = $('#node-config-input-scopes').val();
-        if (discovery === "" || clientId === "" || clientSecret === "" || scopes === "") {
+        if (discovery === "" || clientId === "" || clientSecret === "") {
           e.preventDefault();
         }
       });
