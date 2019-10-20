@@ -30,6 +30,7 @@ module.exports = function (RED) {
       discovery_url: {type: 'text'},
       client_id:     {type: 'text'},
       client_secret: {type: 'password'},
+      scopes:        {type: 'text'},
       id_token:      {type: 'password'},
       refresh_token: {type: 'password'},
       access_token:  {type: 'password'},
@@ -47,20 +48,21 @@ module.exports = function (RED) {
     const redirect_uri = req.query.callback
     const client_id = req.query.clientId
     const client_secret = req.query.clientSecret
+    const scopes = req.query.scopes.trim() !== '' ? req.query.scopes.trim() : 'openid email offline_access'
 
     Issuer.discover(discovery_url).then((issuer) => {
       const csrf_token = crypto.randomBytes(18).toString('base64').replace(/\//g, '-').replace(/\+/g, '_')
       const client = new issuer.Client({client_id, client_secret})
       const authorization_url = client.authorizationUrl({
         redirect_uri,
-        scope: 'openid email offline_access',
+        scope: scopes,
         state: `${node_id}:${csrf_token}`,
         access_type: 'offline'
       })
       res.cookie('csrf', csrf_token)
       res.redirect(authorization_url)
       RED.nodes.addCredentials(node_id, {
-        discovery_url, client_id, client_secret, redirect_uri, csrf_token
+        discovery_url, client_id, client_secret, scopes, redirect_uri, csrf_token
       })
     }, (err) => {
       console.log('Discover error %j', err)

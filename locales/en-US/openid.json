@@ -8,6 +8,7 @@
       "discovery_url": "Discovery",
       "client_id": "Client Id",
       "client_secret": "Client secret",
+      "scopes": "Scopes",
       "authenticate": "Authenticate",
       "displayName": "Display name"
     },

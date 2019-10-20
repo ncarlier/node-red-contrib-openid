@@ -38,6 +38,12 @@
       <input type="password" id="node-config-input-clientSecret">
     </div>
     <div class="form-row">
+      <label for="node-config-input-scopes">
+        <i class="fa fa-crosshairs"></i> <span data-i18n="openid.label.scopes"></span>
+      </label>
+      <input type="text" placeholder="openid email offline_access" id="node-config-input-scopes">
+    </div>
+    <div class="form-row">
       <label>&nbsp;</label>
       <a class="btn" id="node-config-start-auth" href="#" target="_blank"><span data-i18n="openid.label.authenticate"></span></a>
     </div>
@@ -64,7 +70,8 @@
       display_name: {type:"text"},
       discovery_url: { type: "text"},
       client_id: { type: "text"},
-      client_secret: { type: "password"}
+      client_secret: { type: "password"},
+      scopes: { type: "text"}
     },
     label: function() {
       return this.displayName || 'OpenID';
@@ -92,6 +99,7 @@
       $("#node-config-input-discovery").on('change keydown paste input', updateOpenIDAuthButton);
       $("#node-config-input-clientId").on('change keydown paste input', updateOpenIDAuthButton);
       $("#node-config-input-clientSecret").on('change keydown paste input', updateOpenIDAuthButton);
+      $("#node-config-input-scopes").on('change keydown paste input', updateOpenIDAuthButton);
 
       function updateOpenIDDisplayName(dn) {
         $("#node-config-openid-client-keys").hide();
@@ -126,7 +134,8 @@
         var discovery = $("#node-config-input-discovery").val();
         var clientId = $("#node-config-input-clientId").val();
         var clientSecret = $("#node-config-input-clientSecret").val();
-        var url = 'openid-credentials/auth?id='+id+'&discovery='+encodeURIComponent(discovery)+'&clientId='+clientId+"&clientSecret="+clientSecret+"&callback="+encodeURIComponent(callback);
+        var scopes = $('#node-config-input-scopes').val();
+        var url = 'openid-credentials/auth?id='+id+'&discovery='+encodeURIComponent(discovery)+'&clientId='+clientId+"&clientSecret="+clientSecret+"&scopes="+scopes+"&callback="+encodeURIComponent(callback);
         $(this).attr("href",url);
         window.openidConfigNodeIntervalId = window.setTimeout(pollOpenIDCredentials, 2000);
       });
@@ -134,6 +143,7 @@
         var discovery = $("#node-config-input-discovery").val();
         var clientId = $("#node-config-input-clientId").val();
         var clientSecret = $("#node-config-input-clientSecret").val();
+        var scopes = $('#node-config-input-scopes').val();
         if (discovery === "" || clientId === "" || clientSecret === "") {
           e.preventDefault();
         }
