@@ -3,7 +3,7 @@
   "version": "1.1.0",
   "description": "Node-RED node to integrate OpenID Connect in flows",
   "dependencies": {
-    "openid-client": "^2.5.0"
+    "openid-client": "^3.0.0"
   },
   "repository": {
     "type": "git",
