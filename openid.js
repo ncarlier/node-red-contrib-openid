@@ -65,7 +65,7 @@ module.exports = function (RED) {
         discovery_url, client_id, client_secret, scopes, redirect_uri, csrf_token
       })
     }, (err) => {
-      console.log('Discover error %j', err)
+      console.log('unable to get issuer from discovery URL during authentication request: %j', err)
       return res.send(RED._('openid.error.bad-discovery-url'))
     })
   })
@@ -101,11 +101,11 @@ module.exports = function (RED) {
         }))
         return res.send(RED._('openid.error.authorized'))
       }, err => {
-        console.log('OpenID err:', err)
+        console.log('unable to process authentication callback: %j', err)
         return res.send(RED._('openid.error.something-broke'))
       })
     }, err => {
-      console.log('Discover error %j', err)
+      console.log('unable to get issuer from discovery URL during authentication callback: %j', err)
       return res.send(RED._('openid.error.bad-discovery-url'))
     })
   })
@@ -121,8 +121,8 @@ module.exports = function (RED) {
     Issuer.discover(this.openid.credentials.discovery_url).then(iss => {
       issuer = iss
     }, err => {
+      console.log('unable to get issuer from discovery URL during node creation: %j', err)
       this.error(RED._('openid.error.bad-discovery_url'))
-      console.log('Discover error %j', err)
       return
     })
 

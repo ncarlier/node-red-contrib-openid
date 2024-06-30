@@ -1,0 +1,10 @@
+version: "3.6"
+
+services:
+  nodered:
+    image: ncarlier/node-red-contrib-auth-oidc:latest
+    build: .
+    ports:
+    - "${PORT:-1880}:1880"
+    environment:
+    - NODE_ENV=development
