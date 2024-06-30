@@ -2,7 +2,7 @@ version: "3.6"
 
 services:
   nodered:
-    image: ncarlier/node-red-contrib-openid@latest
+    image: ncarlier/node-red-contrib-openid
     build: .
     ports:
     - "${PORT:-1880}:1880"

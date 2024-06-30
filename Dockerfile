@@ -2,17 +2,22 @@
 # Node-RED server with OpenID plugin.
 #########################################
 
-FROM node:20
+FROM nodered/node-red
 
-RUN npm install -g --unsafe-perm node-red && \
-    mkdir ~/.node-red
+USER root
 
-COPY --chown=node:node . .
+WORKDIR /app
+
+COPY ["package.json", "package-lock.json*", "./"]
+
+RUN npm install
+
+COPY . .
 
 RUN npm link
 
-RUN cd ~/.node-red && npm link node-red-contrib-openid
+USER node-red
 
-EXPOSE 1880
+WORKDIR /usr/src/node-red
 
-ENTRYPOINT ["node-red"]
+RUN npm link node-red-contrib-openid

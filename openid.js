@@ -90,7 +90,7 @@ module.exports = function (RED) {
 
     Issuer.discover(credentials.discovery_url).then(issuer => {
       const client = new issuer.Client(credentials)
-      client.authorizationCallback(credentials.redirect_uri, {code: req.query.code}).then((tokenSet) => {
+      client.callback(credentials.redirect_uri, {code: req.query.code}).then((tokenSet) => {
         const claims = tokenSet.claims
         RED.nodes.addCredentials(node_id, Object.assign({}, credentials, {
           id_token: tokenSet.id_token,
